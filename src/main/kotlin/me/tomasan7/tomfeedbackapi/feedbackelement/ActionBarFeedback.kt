@@ -1,30 +1,26 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.Placeholders
+import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.text.minimessage.MiniMessage
 
 class ActionBarFeedback(
-    message: String,
-    miniMessage: MiniMessage = MiniMessage.miniMessage()
-) : MessageFeedback(message, miniMessage)
+    message: String
+) : MessageFeedback(message)
 {
     /**
      * Sends this [MessageFeedback] to the [player].
      */
-    override fun send(player: Audience, placeholders: Placeholders?) = player.sendActionBar(build(placeholders))
+    override fun send(player: Audience, placeholders: Placeholders?) = player.sendActionBar(message.miniParse(placeholders))
 
     companion object
     {
-        fun deserialize(obj: Any, miniMessage: MiniMessage? = null): ActionBarFeedback?
+        fun deserialize(obj: Any): ActionBarFeedback?
         {
             if (obj !is String)
                 return null
 
-            return if (miniMessage != null)
-                ActionBarFeedback(obj, miniMessage)
-            else
-                ActionBarFeedback(obj)
+            return ActionBarFeedback(obj)
         }
     }
 }

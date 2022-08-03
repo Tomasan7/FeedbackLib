@@ -37,3 +37,5 @@ class Placeholders(private val placeholders: Map<String, Any>)
         }
     }
 }
+
+fun String.apply(placeholders: Placeholders) = placeholders.apply(this)

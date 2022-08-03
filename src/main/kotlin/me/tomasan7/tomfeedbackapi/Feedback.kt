@@ -24,15 +24,17 @@ class Feedback(
 
     companion object
     {
-        fun deserialize(obj: Any, miniMessage: MiniMessage? = null): Feedback?
+        /** The [MiniMessage] instance used by feedback elements to deserialize mini-message strings. */
+        var miniMessage = MiniMessage.miniMessage()
+
+        fun deserialize(obj: Any): Feedback?
         {
             if (obj !is String
                 && obj !is Map<*, *>)
                 return null
 
             if (obj is String)
-                return if (miniMessage != null) Feedback(MessageFeedback.deserialize(obj))
-                else Feedback(MessageFeedback.deserialize(obj))
+                return Feedback(MessageFeedback.deserialize(obj))
             else
             {
                 val map = obj as Map<String, Any>
@@ -43,12 +45,18 @@ class Feedback(
                 val soundObj = map["sound"]
 
                 return Feedback(
-                    if (messageObj != null) MessageFeedback.deserialize(messageObj, miniMessage) else null,
-                    if (titleObj != null) TitleFeedback.deserialize(titleObj, miniMessage) else null,
-                    if (actionBarObj != null) ActionBarFeedback.deserialize(actionBarObj, miniMessage) else null,
+                    if (messageObj != null) MessageFeedback.deserialize(messageObj) else null,
+                    if (titleObj != null) TitleFeedback.deserialize(titleObj) else null,
+                    if (actionBarObj != null) ActionBarFeedback.deserialize(actionBarObj) else null,
                     if (soundObj != null) SoundFeedback.deserialize(soundObj) else null
                 )
             }
         }
     }
 }
+
+fun String.miniParse(placeholders: Placeholders?) =
+    if (placeholders != null)
+        Feedback.miniMessage.deserialize(placeholders.apply(this))
+    else
+        Feedback.miniMessage.deserialize(this)
