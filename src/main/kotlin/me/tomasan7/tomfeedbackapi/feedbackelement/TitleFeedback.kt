@@ -1,6 +1,7 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.Placeholders
+import me.tomasan7.tomfeedbackapi.TextFeedback
 import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
@@ -12,18 +13,38 @@ class TitleFeedback(
     val title: String? = null,
     val subtitle: String? = null,
     val times: Times = Times.DEFAULT
-)
+) : TextFeedback
 {
     init
     {
         require(title != null || subtitle != null) { "Title and subtitle cannot be null at the same time. At least one must be non null." }
     }
 
+    override fun apply(audience: Audience, placeholders: Placeholders?)
+    {
+        /* Send whole Title object if both title and subtitle are present. */
+        if (title != null && subtitle != null)
+        {
+            audience.showTitle(buildTitle(placeholders))
+            return
+        }
+
+        /* Now, we will only send one part (either title or subtitle) so we need to send times separately beforehand. */
+        audience.sendTitlePart(TitlePart.TIMES, times.titleTimes)
+
+        /* Send only title. */
+        if (title != null)
+            audience.sendTitlePart(TitlePart.TITLE, buildTitleComponent(placeholders) as Component)
+        /* Send only subtitle. */
+        else if (subtitle != null)
+            audience.sendTitlePart(TitlePart.SUBTITLE, buildSubtitleComponent(placeholders) as Component)
+    }
+
     /**
      * Creates a [Title] instance from this [TitleFeedback].
      * @param placeholders Placeholders to replace.
      */
-    fun buildTitle(placeholders: Placeholders? = null): Title
+    private fun buildTitle(placeholders: Placeholders? = null): Title
     {
         val titleComp = buildTitleComponent(placeholders) ?: Component.empty()
         val subtitleComp = buildSubtitleComponent(placeholders) ?: Component.empty()
@@ -35,36 +56,13 @@ class TitleFeedback(
      * Creates [Component] representing title.
      * @param placeholders Placeholders to replace.
      */
-    fun buildTitleComponent(placeholders: Placeholders? = null) = title?.miniParse(placeholders)
+    private fun buildTitleComponent(placeholders: Placeholders? = null) = title?.miniParse(placeholders)
 
     /**
      * Creates [Component] representing subtitle.
      * @param placeholders Placeholders to replace.
      */
-    fun buildSubtitleComponent(placeholders: Placeholders? = null) = subtitle?.miniParse(placeholders)
-
-    /**
-     * Sends this [TitleFeedback] to the [player].
-     */
-    fun send(player: Audience, placeholders: Placeholders? = null)
-    {
-        /* Send whole Title object if both title and subtitle are present. */
-        if (title != null && subtitle != null)
-        {
-            player.showTitle(buildTitle(placeholders))
-            return
-        }
-
-        /* Now, we will only send one part (either title or subtitle) so we need to send times separately beforehand. */
-        player.sendTitlePart(TitlePart.TIMES, times.titleTimes)
-
-        /* Send only title. */
-        if (title != null)
-            player.sendTitlePart(TitlePart.TITLE, buildTitleComponent(placeholders) as Component)
-        /* Send only subtitle. */
-        else if (subtitle != null)
-            player.sendTitlePart(TitlePart.SUBTITLE, buildSubtitleComponent(placeholders) as Component)
-    }
+    private fun buildSubtitleComponent(placeholders: Placeholders? = null) = subtitle?.miniParse(placeholders)
 
     companion object
     {

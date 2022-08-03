@@ -1,5 +1,6 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
+import me.tomasan7.tomfeedbackapi.Feedback
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
@@ -9,12 +10,9 @@ class SoundFeedback(
     val source: Sound.Source = DEFAULT_SOURCE,
     val volume: Float = DEFAULT_VOLUME,
     val pitch: Float = DEFAULT_PITCH
-)
+) : Feedback
 {
-    /**
-     * Sends this [SoundFeedback] to the [player].
-     */
-    fun send(player: Audience) = player.playSound(Sound.sound(key, source, volume, pitch), Sound.Emitter.self())
+    override fun apply(audience: Audience) = audience.playSound(Sound.sound(key, source, volume, pitch), Sound.Emitter.self())
 
     companion object
     {
