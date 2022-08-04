@@ -1,9 +1,11 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.Feedback
+import me.tomasan7.tomfeedbackapi.buildTextComponent
 import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.TextComponent
 
 open class ChatFeedback(val message: Component) : Feedback
 {
@@ -20,3 +22,8 @@ open class ChatFeedback(val message: Component) : Feedback
         }
     }
 }
+
+fun buildChatFeedback(
+    text: String? = null,
+    block: TextComponent.Builder.() -> Unit = {}
+) = ChatFeedback(buildTextComponent(text, block))

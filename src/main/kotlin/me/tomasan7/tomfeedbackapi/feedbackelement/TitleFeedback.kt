@@ -1,11 +1,11 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Feedback
-import me.tomasan7.tomfeedbackapi.Placeholders
-import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
+import me.tomasan7.tomfeedbackapi.*
 import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
+import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
+import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.title.Title
 import net.kyori.adventure.title.TitlePart
 import java.time.Duration
@@ -54,8 +54,41 @@ class TitleFeedback(
         return Title.title(titleComp, subtitleComp, times.titleTimes)
     }
 
+    class Builder
+    {
+        private var title: Component? = null
+        private var subtitle: Component? = null
+        private var times = Times.DEFAULT
+
+        fun title(title: Component) { this.title = title }
+
+        fun title(
+            text: String? = null,
+            block: TextComponent.Builder.() -> Unit = {}
+        ) { title = buildTextComponent(text, block) }
+
+        fun subtitle(subtitle: Component) { this.subtitle = subtitle }
+
+        fun subtitle(
+            text: String? = null,
+            block: TextComponent.Builder.() -> Unit = {}
+        ) { subtitle = buildTextComponent(text, block) }
+
+        fun times(times: Times) { this.times = times }
+
+        fun fadeIn(fadeIn: Int) { times = times.copy(fadeIn = fadeIn) }
+
+        fun stay(stay: Int) { times = times.copy(stay = stay) }
+
+        fun fadeOut(fadeOut: Int) { times = times.copy(fadeOut = fadeOut) }
+
+        fun build() = TitleFeedback(title, subtitle, times)
+    }
+
     companion object
     {
+        fun builder() = Builder()
+
         fun deserialize(obj: Any): TitleFeedback?
         {
             if (obj !is String
@@ -100,3 +133,5 @@ class TitleFeedback(
         }
     }
 }
+
+fun buildTitleFeedback(block: TitleFeedback.Builder.() -> Unit = {}) = TitleFeedback.builder().apply(block).build()

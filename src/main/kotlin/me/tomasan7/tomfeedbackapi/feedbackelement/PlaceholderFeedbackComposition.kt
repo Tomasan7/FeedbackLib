@@ -10,13 +10,14 @@ class PlaceholderFeedbackComposition(
     vararg val feedbacks: Feedback
 ) : PlaceholderFeedback
 {
+    constructor(feedbacks: Collection<Feedback>): this(*feedbacks.toTypedArray())
+
     override fun apply(audience: Audience, placeholders: Placeholders?) = feedbacks.forEach { feedback ->
         if (feedback is PlaceholderFeedback)
             feedback.apply(audience, placeholders)
         else
             feedback.apply(audience)
     }
-
 
     companion object
     {
@@ -46,7 +47,7 @@ class PlaceholderFeedbackComposition(
                 }
                 soundObj?.let { nnSoundObj -> SoundFeedback.deserialize(nnSoundObj)?.let { feedbacks.add(it) } }
 
-                return FeedbackComposition(*feedbacks.toTypedArray())
+                return FeedbackComposition(feedbacks)
             }
         }
     }

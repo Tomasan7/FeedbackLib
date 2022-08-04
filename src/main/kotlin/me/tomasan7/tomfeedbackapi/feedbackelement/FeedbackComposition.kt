@@ -8,10 +8,23 @@ class FeedbackComposition(
     vararg val feedbacks: Feedback
 ) : Feedback
 {
+    constructor(feedbacks: Collection<Feedback>): this(*feedbacks.toTypedArray())
+
     override fun apply(audience: Audience) = feedbacks.forEach { it.apply(audience) }
+
+    class Builder
+    {
+        private val feedbacks = emptyMutableLinkedList<Feedback>()
+
+        fun add(feedback: Feedback) = feedbacks.add(feedback)
+
+        fun build() = FeedbackComposition(*feedbacks.toTypedArray())
+    }
 
     companion object
     {
+        fun builder() = Builder()
+
         fun deserialize(obj: Any): FeedbackComposition?
         {
             if (obj !is String
@@ -36,8 +49,10 @@ class FeedbackComposition(
                 actionBarObj?.let { nnActionBarObj -> ActionBarFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) } }
                 soundObj?.let { nnSoundObj -> SoundFeedback.deserialize(nnSoundObj)?.let { feedbacks.add(it) } }
 
-                return FeedbackComposition(*feedbacks.toTypedArray())
+                return FeedbackComposition(feedbacks)
             }
         }
     }
 }
+
+fun buildFeedbackComposition(block: FeedbackComposition.Builder.() -> Unit) = FeedbackComposition.builder().apply(block).build()
