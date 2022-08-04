@@ -1,22 +1,22 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.TextFeedback
+import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
 import me.tomasan7.tomfeedbackapi.Placeholders
 import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
 
-class ActionBarFeedbackChat(val message: String) : TextFeedback
+class ActionBarPlaceholderFeedback(val message: String) : PlaceholderFeedback
 {
     override fun apply(audience: Audience, placeholders: Placeholders?) = audience.sendActionBar(message.miniParse(placeholders))
 
     companion object
     {
-        fun deserialize(obj: Any): ActionBarFeedbackChat?
+        fun deserialize(obj: Any): ActionBarPlaceholderFeedback?
         {
             if (obj !is String)
                 return null
 
-            return ActionBarFeedbackChat(obj)
+            return ActionBarPlaceholderFeedback(obj)
         }
     }
 }

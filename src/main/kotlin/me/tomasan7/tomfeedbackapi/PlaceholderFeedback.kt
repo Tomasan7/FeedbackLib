@@ -2,7 +2,7 @@ package me.tomasan7.tomfeedbackapi
 
 import net.kyori.adventure.audience.Audience
 
-interface TextFeedback : Feedback
+interface PlaceholderFeedback : Feedback
 {
     fun apply(audience: Audience, placeholders: Placeholders? = null)
 

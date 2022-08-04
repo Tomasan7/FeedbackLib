@@ -1,6 +1,5 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Feedback
 import me.tomasan7.tomfeedbackapi.Placeholders
 import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
 import me.tomasan7.tomfeedbackapi.miniParse
@@ -10,23 +9,23 @@ import net.kyori.adventure.title.Title
 import net.kyori.adventure.title.TitlePart
 import java.time.Duration
 
-class TitleFeedback(
-    val title: Component? = null,
-    val subtitle: Component? = null,
+class TitlePlaceholderFeedback(
+    val title: String? = null,
+    val subtitle: String? = null,
     val times: Times = Times.DEFAULT
-) : Feedback
+) : PlaceholderFeedback
 {
     init
     {
         require(title != null || subtitle != null) { "Title and subtitle cannot be null at the same time. At least one must be non null." }
     }
 
-    override fun apply(audience: Audience)
+    override fun apply(audience: Audience, placeholders: Placeholders?)
     {
         /* Send whole Title object if both title and subtitle are present. */
         if (title != null && subtitle != null)
         {
-            audience.showTitle(buildTitle())
+            audience.showTitle(buildTitle(title, subtitle, placeholders))
             return
         }
 
@@ -35,35 +34,46 @@ class TitleFeedback(
 
         /* Send only title. */
         if (title != null)
-            audience.sendTitlePart(TitlePart.TITLE, title)
+            audience.sendTitlePart(TitlePart.TITLE, buildTitleComponent(title, placeholders))
         /* Send only subtitle. */
         else if (subtitle != null)
-            audience.sendTitlePart(TitlePart.SUBTITLE, subtitle)
+            audience.sendTitlePart(TitlePart.SUBTITLE, buildSubtitleComponent(subtitle, placeholders))
     }
 
     /**
-     * Creates a [Title] instance from this [TitleFeedback].
+     * Creates a [Title] instance from this [TitlePlaceholderFeedback].
      * @param placeholders Placeholders to replace.
      */
-    private fun buildTitle(): Title
+    private fun buildTitle(title: String, subtitle: String, placeholders: Placeholders? = null): Title
     {
-        /* Neither should be null, since it is called from apply, when neither is null. */
-        val titleComp = title ?: Component.empty()
-        val subtitleComp = subtitle ?: Component.empty()
+        val titleComp = buildTitleComponent(title, placeholders)
+        val subtitleComp = buildSubtitleComponent(subtitle, placeholders)
 
         return Title.title(titleComp, subtitleComp, times.titleTimes)
     }
 
+    /**
+     * Creates [Component] representing title.
+     * @param placeholders Placeholders to replace.
+     */
+    private fun buildTitleComponent(title: String, placeholders: Placeholders? = null) = title.miniParse(placeholders)
+
+    /**
+     * Creates [Component] representing subtitle.
+     * @param placeholders Placeholders to replace.
+     */
+    private fun buildSubtitleComponent(subtitle: String, placeholders: Placeholders? = null) = subtitle.miniParse(placeholders)
+
     companion object
     {
-        fun deserialize(obj: Any): TitleFeedback?
+        fun deserialize(obj: Any): TitlePlaceholderFeedback?
         {
             if (obj !is String
                 && obj !is Map<*, *>)
                 return null
 
             if (obj is String)
-                return TitleFeedback(obj.miniParse())
+                return TitlePlaceholderFeedback(obj)
             else
             {
                 val map = obj as Map<*, *>
@@ -78,9 +88,9 @@ class TitleFeedback(
                 val stay = map["stay"] as? Int ?: Times.DEFAULT.stay
                 val fadeOut = map["fade-out"] as? Int ?: Times.DEFAULT.fadeOut
 
-                return TitleFeedback(title?.miniParse(),
-                                     subtitle?.miniParse(),
-                                     Times(fadeIn, stay, fadeOut))
+                return TitlePlaceholderFeedback(title,
+                                                subtitle,
+                                                Times(fadeIn, stay, fadeOut))
             }
         }
 

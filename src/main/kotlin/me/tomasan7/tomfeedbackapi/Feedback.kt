@@ -14,7 +14,7 @@ interface Feedback
     }
 }
 
-internal fun String.miniParse(placeholders: Placeholders?) =
+internal fun String.miniParse(placeholders: Placeholders? = null) =
     if (placeholders != null)
         Feedback.miniMessage.deserialize(placeholders.apply(this))
     else

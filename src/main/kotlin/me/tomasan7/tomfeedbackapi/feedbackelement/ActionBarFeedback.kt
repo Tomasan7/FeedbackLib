@@ -5,18 +5,18 @@ import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 
-open class ChatFeedback(val message: Component) : Feedback
+class ActionBarFeedback(val message: Component) : Feedback
 {
-    override fun apply(audience: Audience) = audience.sendMessage(message)
+    override fun apply(audience: Audience) = audience.sendActionBar(message)
 
     companion object
     {
-        fun deserialize(obj: Any): ChatFeedback?
+        fun deserialize(obj: Any): ActionBarFeedback?
         {
             if (obj !is String)
                 return null
 
-            return ChatFeedback(obj.miniParse())
+            return ActionBarFeedback(obj.miniParse())
         }
     }
 }

@@ -1,14 +1,22 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.Feedback
+import me.tomasan7.tomfeedbackapi.Placeholders
+import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
 import me.tomasan7.tomfeedbackapi.emptyMutableLinkedList
 import net.kyori.adventure.audience.Audience
 
-class FeedbackComposition(
+class PlaceholderFeedbackComposition(
     vararg val feedbacks: Feedback
-) : Feedback
+) : PlaceholderFeedback
 {
-    override fun apply(audience: Audience) = feedbacks.forEach { it.apply(audience) }
+    override fun apply(audience: Audience, placeholders: Placeholders?) = feedbacks.forEach { feedback ->
+        if (feedback is PlaceholderFeedback)
+            feedback.apply(audience, placeholders)
+        else
+            feedback.apply(audience)
+    }
+
 
     companion object
     {
@@ -33,7 +41,9 @@ class FeedbackComposition(
 
                 messageObj?.let { nnMessageObj -> ChatFeedback.deserialize(nnMessageObj)?.let { feedbacks.add(it) } }
                 titleObj?.let { nnTitleObj -> TitleFeedback.deserialize(nnTitleObj)?.let { feedbacks.add(it) } }
-                actionBarObj?.let { nnActionBarObj -> ActionBarFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) } }
+                actionBarObj?.let { nnActionBarObj ->
+                    ActionBarFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) }
+                }
                 soundObj?.let { nnSoundObj -> SoundFeedback.deserialize(nnSoundObj)?.let { feedbacks.add(it) } }
 
                 return FeedbackComposition(*feedbacks.toTypedArray())
