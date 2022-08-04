@@ -33,10 +33,10 @@ class PlaceholderFeedbackComposition(
             {
                 val map = obj as Map<String, *>
 
-                val messageObj = map["message"]
-                val titleObj = map["title"]
-                val actionBarObj = map["action-bar"]
-                val soundObj = map["sound"]
+                val messageObj = map[FeedbackComposition.Companion.Keys.MESSAGE]
+                val titleObj = map[FeedbackComposition.Companion.Keys.TITLE]
+                val actionBarObj = map[FeedbackComposition.Companion.Keys.ACTION_BAR]
+                val soundObj = map[FeedbackComposition.Companion.Keys.SOUND]
 
                 val feedbacks = emptyMutableLinkedList<Feedback>()
 

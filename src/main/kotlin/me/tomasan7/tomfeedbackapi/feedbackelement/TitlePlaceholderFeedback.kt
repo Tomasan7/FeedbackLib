@@ -78,15 +78,15 @@ class TitlePlaceholderFeedback(
             {
                 val map = obj as Map<*, *>
 
-                val title = map["title"] as? String
-                val subtitle = map["sub-title"] as? String
+                val title = map[TitleFeedback.Companion.Keys.TITLE] as? String
+                val subtitle = map[TitleFeedback.Companion.Keys.SUB_TITLE] as? String
 
                 if (title == null && subtitle == null)
                     return null
 
-                val fadeIn = map["fade-in"] as? Int ?: Times.DEFAULT.fadeIn
-                val stay = map["stay"] as? Int ?: Times.DEFAULT.stay
-                val fadeOut = map["fade-out"] as? Int ?: Times.DEFAULT.fadeOut
+                val fadeIn = map[TitleFeedback.Companion.Keys.FADE_IN] as? Int ?: Times.DEFAULT.fadeIn
+                val stay = map[TitleFeedback.Companion.Keys.STAY] as? Int ?: Times.DEFAULT.stay
+                val fadeOut = map[TitleFeedback.Companion.Keys.FADE_OUT] as? Int ?: Times.DEFAULT.fadeOut
 
                 return TitlePlaceholderFeedback(title,
                                                 subtitle,

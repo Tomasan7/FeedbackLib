@@ -1,9 +1,7 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.*
-import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
-import net.kyori.adventure.key.Key
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent
 import net.kyori.adventure.title.Title
@@ -101,20 +99,29 @@ class TitleFeedback(
             {
                 val map = obj as Map<*, *>
 
-                val title = map["title"] as? String
-                val subtitle = map["sub-title"] as? String
+                val title = map[Keys.TITLE] as? String
+                val subtitle = map[Keys.SUB_TITLE] as? String
 
                 if (title == null && subtitle == null)
                     return null
 
-                val fadeIn = map["fade-in"] as? Int ?: Times.DEFAULT.fadeIn
-                val stay = map["stay"] as? Int ?: Times.DEFAULT.stay
-                val fadeOut = map["fade-out"] as? Int ?: Times.DEFAULT.fadeOut
+                val fadeIn = map[Keys.FADE_IN] as? Int ?: Times.DEFAULT.fadeIn
+                val stay = map[Keys.STAY] as? Int ?: Times.DEFAULT.stay
+                val fadeOut = map[Keys.FADE_OUT] as? Int ?: Times.DEFAULT.fadeOut
 
                 return TitleFeedback(title?.miniParse(),
                                      subtitle?.miniParse(),
                                      Times(fadeIn, stay, fadeOut))
             }
+        }
+
+        object Keys
+        {
+            const val TITLE = "title"
+            const val SUB_TITLE = "sub-title"
+            const val FADE_IN = "fade-in"
+            const val STAY = "stay"
+            const val FADE_OUT = "fade-out"
         }
 
         data class Times(val fadeIn: Int, val stay: Int, val fadeOut: Int)

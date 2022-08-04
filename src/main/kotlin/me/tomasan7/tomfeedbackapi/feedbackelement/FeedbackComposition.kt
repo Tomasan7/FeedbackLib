@@ -37,10 +37,10 @@ class FeedbackComposition(
             {
                 val map = obj as Map<String, *>
 
-                val messageObj = map["message"]
-                val titleObj = map["title"]
-                val actionBarObj = map["action-bar"]
-                val soundObj = map["sound"]
+                val messageObj = map[Keys.MESSAGE]
+                val titleObj = map[Keys.TITLE]
+                val actionBarObj = map[Keys.ACTION_BAR]
+                val soundObj = map[Keys.SOUND]
 
                 val feedbacks = emptyMutableLinkedList<Feedback>()
 
@@ -51,6 +51,14 @@ class FeedbackComposition(
 
                 return FeedbackComposition(feedbacks)
             }
+        }
+
+        object Keys
+        {
+            const val MESSAGE = "message"
+            const val TITLE = "title"
+            const val ACTION_BAR = "action-bar"
+            const val SOUND = "sound"
         }
     }
 }
