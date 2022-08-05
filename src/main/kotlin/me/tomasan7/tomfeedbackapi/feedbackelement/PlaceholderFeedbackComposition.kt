@@ -62,11 +62,9 @@ class PlaceholderFeedbackComposition(
 
                 val feedbacks = emptyMutableLinkedList<Feedback>()
 
-                messageObj?.let { nnMessageObj -> ChatFeedback.deserialize(nnMessageObj)?.let { feedbacks.add(it) } }
-                titleObj?.let { nnTitleObj -> TitleFeedback.deserialize(nnTitleObj)?.let { feedbacks.add(it) } }
-                actionBarObj?.let { nnActionBarObj ->
-                    ActionBarFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) }
-                }
+                messageObj?.let { nnMessageObj -> ChatPlaceholderFeedback.deserialize(nnMessageObj)?.let { feedbacks.add(it) } }
+                titleObj?.let { nnTitleObj -> TitlePlaceholderFeedback.deserialize(nnTitleObj)?.let { feedbacks.add(it) } }
+                actionBarObj?.let { nnActionBarObj -> ActionBarPlaceholderFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) } }
                 soundObj?.let { nnSoundObj -> SoundFeedback.deserialize(nnSoundObj)?.let { feedbacks.add(it) } }
 
                 return PlaceholderFeedbackComposition(feedbacks)
