@@ -39,6 +39,24 @@ class TitleFeedback(
             audience.sendTitlePart(TitlePart.SUBTITLE, subtitle)
     }
 
+    override fun serialize(): Map<String, Any>
+    {
+        val map = emptyMutableHashMap<String, Any>()
+
+        if (title != null)
+            map[Keys.TITLE] = Feedback.legacySerializer.serialize(title)
+        if (subtitle != null)
+            map[Keys.SUB_TITLE] = Feedback.legacySerializer.serialize(subtitle)
+        if (times.fadeIn != Times.DEFAULT.fadeIn)
+            map[Keys.FADE_IN] = times.fadeIn
+        if (times.stay != Times.DEFAULT.stay)
+            map[Keys.STAY] = times.stay
+        if (times.fadeOut != Times.DEFAULT.fadeOut)
+            map[Keys.FADE_OUT] = times.fadeOut
+
+        return map
+    }
+
     /**
      * Creates a [Title] instance from this [TitleFeedback].
      * @param placeholders Placeholders to replace.

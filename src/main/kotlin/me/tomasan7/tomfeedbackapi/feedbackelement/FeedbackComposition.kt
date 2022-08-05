@@ -1,16 +1,42 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.Feedback
+import me.tomasan7.tomfeedbackapi.emptyMutableHashMap
 import me.tomasan7.tomfeedbackapi.emptyMutableLinkedList
 import net.kyori.adventure.audience.Audience
+import java.lang.IllegalStateException
 
 class FeedbackComposition(
     vararg val feedbacks: Feedback
 ) : Feedback
 {
-    constructor(feedbacks: Collection<Feedback>): this(*feedbacks.toTypedArray())
+    constructor(feedbacks: Collection<Feedback>) : this(*feedbacks.toTypedArray())
 
     override fun apply(audience: Audience) = feedbacks.forEach { it.apply(audience) }
+
+    /**
+     * Only serializes one [Feedback] of each type.
+     */
+    override fun serialize(): Any
+    {
+        val map = emptyMutableHashMap<String, Any>()
+
+        for (feedback in feedbacks)
+        {
+            val key = when (feedback)
+            {
+                is ChatFeedback, is ChatPlaceholderFeedback -> Keys.MESSAGE
+                is ActionBarFeedback, is ActionBarPlaceholderFeedback -> Keys.ACTION_BAR
+                is TitleFeedback, is TitlePlaceholderFeedback -> Keys.TITLE
+                is SoundFeedback -> Keys.SOUND
+                else -> throw IllegalStateException()
+            }
+
+            map[key] = feedback.serialize()
+        }
+
+        return map
+    }
 
     class Builder
     {
@@ -46,7 +72,9 @@ class FeedbackComposition(
 
                 messageObj?.let { nnMessageObj -> ChatFeedback.deserialize(nnMessageObj)?.let { feedbacks.add(it) } }
                 titleObj?.let { nnTitleObj -> TitleFeedback.deserialize(nnTitleObj)?.let { feedbacks.add(it) } }
-                actionBarObj?.let { nnActionBarObj -> ActionBarFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) } }
+                actionBarObj?.let { nnActionBarObj ->
+                    ActionBarFeedback.deserialize(nnActionBarObj)?.let { feedbacks.add(it) }
+                }
                 soundObj?.let { nnSoundObj -> SoundFeedback.deserialize(nnSoundObj)?.let { feedbacks.add(it) } }
 
                 return FeedbackComposition(feedbacks)
@@ -63,4 +91,5 @@ class FeedbackComposition(
     }
 }
 
-fun buildFeedbackComposition(block: FeedbackComposition.Builder.() -> Unit) = FeedbackComposition.builder().apply(block).build()
+fun buildFeedbackComposition(block: FeedbackComposition.Builder.() -> Unit) =
+    FeedbackComposition.builder().apply(block).build()

@@ -11,6 +11,8 @@ open class ChatFeedback(val message: Component) : Feedback
 {
     override fun apply(audience: Audience) = audience.sendMessage(message)
 
+    override fun serialize() = Feedback.legacySerializer.serialize(message)
+
     companion object
     {
         fun deserialize(obj: Any): ChatFeedback?

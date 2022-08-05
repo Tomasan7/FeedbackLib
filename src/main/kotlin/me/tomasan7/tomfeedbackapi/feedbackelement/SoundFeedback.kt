@@ -1,11 +1,9 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
 import me.tomasan7.tomfeedbackapi.Feedback
-import me.tomasan7.tomfeedbackapi.buildTextComponent
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
-import net.kyori.adventure.text.TextComponent
 
 class SoundFeedback(
     val key: Key,
@@ -15,6 +13,13 @@ class SoundFeedback(
 ) : Feedback
 {
     override fun apply(audience: Audience) = audience.playSound(Sound.sound(key, source, volume, pitch), Sound.Emitter.self())
+
+    override fun serialize() = mapOf(
+        Keys.KEY to key.toString(),
+        Keys.SOURCE to source.toString(),
+        Keys.VOLUME to volume,
+        Keys.PITCH to pitch
+    )
 
     class Builder(private val key: Key)
     {
@@ -55,14 +60,22 @@ class SoundFeedback(
             {
                 val map = obj as Map<String, Any>
 
-                val key = map["key"] as? String ?: return null
+                val key = map[Keys.KEY] as? String ?: return null
 
-                val source = map["source"] as? String ?: DEFAULT_SOURCE.toString()
-                val volume = map["volume"] as? Float ?: DEFAULT_VOLUME
-                val pitch = map["pitch"] as? Float ?: DEFAULT_PITCH
+                val source = map[Keys.SOURCE] as? String ?: DEFAULT_SOURCE.toString()
+                val volume = map[Keys.VOLUME] as? Float ?: DEFAULT_VOLUME
+                val pitch = map[Keys.PITCH] as? Float ?: DEFAULT_PITCH
 
                 return SoundFeedback(Key.key(key), Sound.Source.valueOf(source), volume, pitch)
             }
+        }
+
+        object Keys
+        {
+            const val KEY = "key"
+            const val SOURCE = "source"
+            const val VOLUME = "volume"
+            const val PITCH = "pitch"
         }
     }
 }

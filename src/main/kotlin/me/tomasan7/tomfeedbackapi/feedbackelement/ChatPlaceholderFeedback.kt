@@ -9,6 +9,8 @@ open class ChatPlaceholderFeedback(val message: String) : PlaceholderFeedback
 {
     override fun apply(audience: Audience, placeholders: Placeholders?) = audience.sendMessage(message.miniParse(placeholders))
 
+    override fun serialize() = message
+
     companion object
     {
         fun deserialize(obj: Any): ChatPlaceholderFeedback?

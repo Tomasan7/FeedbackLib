@@ -15,6 +15,7 @@ repositories {
 dependencies {
     implementation(kotlin("stdlib"))
     api("net.kyori:adventure-text-minimessage:4.11.0")
+    implementation("net.kyori:adventure-text-serializer-legacy:4.11.0")
 
     testImplementation(kotlin("test"))
 }

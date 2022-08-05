@@ -11,6 +11,8 @@ class ActionBarFeedback(val message: Component) : Feedback
 {
     override fun apply(audience: Audience) = audience.sendActionBar(message)
 
+    override fun serialize() = Feedback.legacySerializer.serialize(message)
+
     companion object
     {
         fun deserialize(obj: Any): ActionBarFeedback?

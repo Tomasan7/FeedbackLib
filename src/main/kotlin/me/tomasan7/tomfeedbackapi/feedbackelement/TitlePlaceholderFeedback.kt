@@ -1,7 +1,6 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Placeholders
-import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
+import me.tomasan7.tomfeedbackapi.*
 import me.tomasan7.tomfeedbackapi.miniParse
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
@@ -38,6 +37,24 @@ class TitlePlaceholderFeedback(
         /* Send only subtitle. */
         else if (subtitle != null)
             audience.sendTitlePart(TitlePart.SUBTITLE, buildSubtitleComponent(subtitle, placeholders))
+    }
+
+    override fun serialize(): Map<String, Any>
+    {
+        val map = emptyMutableHashMap<String, Any>()
+
+        if (title != null)
+            map[TitleFeedback.Companion.Keys.TITLE] = title
+        if (subtitle != null)
+            map[TitleFeedback.Companion.Keys.SUB_TITLE] = subtitle
+        if (times.fadeIn != TitleFeedback.Companion.Times.DEFAULT.fadeIn)
+            map[TitleFeedback.Companion.Keys.FADE_IN] = times.fadeIn
+        if (times.stay != TitleFeedback.Companion.Times.DEFAULT.stay)
+            map[TitleFeedback.Companion.Keys.STAY] = times.stay
+        if (times.fadeOut != TitleFeedback.Companion.Times.DEFAULT.fadeOut)
+            map[TitleFeedback.Companion.Keys.FADE_OUT] = times.fadeOut
+
+        return map
     }
 
     /**

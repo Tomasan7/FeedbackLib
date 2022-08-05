@@ -9,6 +9,8 @@ class ActionBarPlaceholderFeedback(val message: String) : PlaceholderFeedback
 {
     override fun apply(audience: Audience, placeholders: Placeholders?) = audience.sendActionBar(message.miniParse(placeholders))
 
+    override fun serialize() = message
+
     companion object
     {
         fun deserialize(obj: Any): ActionBarPlaceholderFeedback?

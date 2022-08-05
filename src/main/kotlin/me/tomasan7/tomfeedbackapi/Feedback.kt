@@ -2,8 +2,9 @@ package me.tomasan7.tomfeedbackapi
 
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.minimessage.MiniMessage
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer
 
-interface Feedback
+interface Feedback : Serializable
 {
     fun apply(audience: Audience)
 
@@ -11,6 +12,8 @@ interface Feedback
     {
         /** The [MiniMessage] instance used by feedback elements to deserialize mini-message strings. */
         var miniMessage = MiniMessage.miniMessage()
+
+        val legacySerializer = LegacyComponentSerializer.legacy('§')
     }
 }
 

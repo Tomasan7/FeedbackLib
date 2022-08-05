@@ -1,10 +1,8 @@
 package me.tomasan7.tomfeedbackapi.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Feedback
-import me.tomasan7.tomfeedbackapi.Placeholders
-import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
-import me.tomasan7.tomfeedbackapi.emptyMutableLinkedList
+import me.tomasan7.tomfeedbackapi.*
 import net.kyori.adventure.audience.Audience
+import java.lang.IllegalStateException
 
 class PlaceholderFeedbackComposition(
     vararg val feedbacks: Feedback
@@ -17,6 +15,30 @@ class PlaceholderFeedbackComposition(
             feedback.apply(audience, placeholders)
         else
             feedback.apply(audience)
+    }
+
+    /**
+     * Only serializes one [Feedback] of each type.
+     */
+    override fun serialize(): Any
+    {
+        val map = emptyMutableHashMap<String, Any>()
+
+        for (feedback in feedbacks)
+        {
+            val key = when (feedback)
+            {
+                is ChatFeedback, is ChatPlaceholderFeedback -> FeedbackComposition.Companion.Keys.MESSAGE
+                is ActionBarFeedback, is ActionBarPlaceholderFeedback -> FeedbackComposition.Companion.Keys.ACTION_BAR
+                is TitleFeedback, is TitlePlaceholderFeedback -> FeedbackComposition.Companion.Keys.TITLE
+                is SoundFeedback -> FeedbackComposition.Companion.Keys.SOUND
+                else -> throw IllegalStateException()
+            }
+
+            map[key] = feedback.serialize()
+        }
+
+        return map
     }
 
     companion object
