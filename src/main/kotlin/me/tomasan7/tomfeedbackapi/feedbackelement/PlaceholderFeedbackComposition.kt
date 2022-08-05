@@ -21,14 +21,14 @@ class PlaceholderFeedbackComposition(
 
     companion object
     {
-        fun deserialize(obj: Any): FeedbackComposition?
+        fun deserialize(obj: Any): PlaceholderFeedbackComposition?
         {
             if (obj !is String
                 && obj !is Map<*, *>)
                 return null
 
             if (obj is String)
-                return ChatFeedback.deserialize(obj)?.let { FeedbackComposition(it) }
+                return ChatFeedback.deserialize(obj)?.let { PlaceholderFeedbackComposition(it) }
             else
             {
                 val map = obj as Map<String, *>
@@ -47,7 +47,7 @@ class PlaceholderFeedbackComposition(
                 }
                 soundObj?.let { nnSoundObj -> SoundFeedback.deserialize(nnSoundObj)?.let { feedbacks.add(it) } }
 
-                return FeedbackComposition(feedbacks)
+                return PlaceholderFeedbackComposition(feedbacks)
             }
         }
     }
