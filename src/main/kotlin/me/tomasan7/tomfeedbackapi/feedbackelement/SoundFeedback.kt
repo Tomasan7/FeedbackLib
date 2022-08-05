@@ -63,8 +63,8 @@ class SoundFeedback(
                 val key = map[Keys.KEY] as? String ?: return null
 
                 val source = map[Keys.SOURCE] as? String ?: DEFAULT_SOURCE.toString()
-                val volume = map[Keys.VOLUME] as? Float ?: DEFAULT_VOLUME
-                val pitch = map[Keys.PITCH] as? Float ?: DEFAULT_PITCH
+                val volume = (map[Keys.VOLUME] as? Number)?.toFloat() ?: DEFAULT_VOLUME
+                val pitch = (map[Keys.PITCH] as? Number)?.toFloat() ?: DEFAULT_PITCH
 
                 return SoundFeedback(Key.key(key), Sound.Source.valueOf(source), volume, pitch)
             }
