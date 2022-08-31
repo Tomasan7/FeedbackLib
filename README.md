@@ -155,8 +155,7 @@ Similarly, you can build Keybind and Translatable components.
 <dependency>
     <groupId>me.tomasan7</groupId>
     <artifactId>tom-feedback-api</artifactId>
-    <version>1.0.0</version>
-    <scope>compile</scope>
+    <version>1.0</version>
 </dependency>
 ```
 ###### Gradle (Kotlin)
