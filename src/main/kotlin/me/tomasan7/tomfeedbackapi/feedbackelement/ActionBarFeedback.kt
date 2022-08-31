@@ -25,7 +25,7 @@ class ActionBarFeedback(val message: Component) : Feedback
     }
 }
 
-fun buildActionBatFeedback(
+fun buildActionBarFeedback(
     text: String? = null,
     block: TextComponent.Builder.() -> Unit = {}
 ) = ActionBarFeedback(buildTextComponent(text, block))
