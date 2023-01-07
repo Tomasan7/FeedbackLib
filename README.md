@@ -1,6 +1,61 @@
+[![Jitpack](https://jitpack.io/v/Tomasan7/TomFeedbackAPI.svg)](https://jitpack.io/#Tomasan7/TomFeedbackAPI)
+
 # TomFeedbackAPI
 
 TomFeedbackAPI is a library to help developers make more configurable messages and other feedbacks easily in their program. It makes it easier for both the developer and the user to configure different types of so called feedbacks. (messages, sounds, titles, etc.) It works on anything implementing [Adventure](https://github.com/KyoriPowered/adventure). All platforms can be found [here](https://docs.adventure.kyori.net/platform/index.html).
+
+---
+
+## Installation
+
+###### Maven
+
+```xml
+<repositories>
+    ...
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
+
+<dependencies>
+    ...
+    <dependency>
+        <groupId>com.github.Tomasan7</groupId>
+        <artifactId>TomFeedbackAPI</artifactId>
+        <version>1.0.0</version>
+    </dependency>
+</dependencies>
+```
+
+###### Gradle (Groovy)
+
+```groovy
+repositories {
+    ...
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    ...
+    implementation 'com.github.Tomasan7:TomFeedbackAPI:<VERSION>'
+}
+```
+
+###### Gradle (Kotlin)
+
+```kotlin
+repositories {
+    ...
+    maven("https://jitpack.io")
+}
+
+dependencies {
+    ...
+    implementation("com.github.Tomasan7:TomFeedbackAPI:<VERSION>")
+}
+```
 
 ---
 ## How it works
@@ -143,26 +198,3 @@ val textComponent = buildTextComponent("Welcome ") {
 ```
 It's just a wrapper around [Adventure's builders](https://docs.adventure.kyori.net/text.html).
 Similarly, you can build Keybind and Translatable components.
-
----
-## Installation
-
-1. Clone the repository with `git clone https://github.com/Tomasan7/TomFeedbackAPI.git`
-2. Run `./gradlew publishToMavenLocal` in the project's root.
-3. Use it as a dependency in your projects.
-###### Maven
-```xml
-<dependency>
-    <groupId>me.tomasan7</groupId>
-    <artifactId>tom-feedback-api</artifactId>
-    <version>1.0</version>
-</dependency>
-```
-###### Gradle (Kotlin)
-```kotlin
-implementation("me.tomasan7:tom-feedback-api:1.0")
-```
-###### Gradle (Groovy)
-```groovy
-implementation 'me.tomasan7:tom-feedback-api:1.0'
-```
