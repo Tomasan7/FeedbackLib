@@ -24,7 +24,7 @@ TomFeedbackAPI is a library to help developers make more configurable messages a
     <dependency>
         <groupId>com.github.Tomasan7</groupId>
         <artifactId>TomFeedbackAPI</artifactId>
-        <version>1.0.0</version>
+        <version>VERSION</version>
     </dependency>
 </dependencies>
 ```
