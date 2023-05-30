@@ -14,7 +14,7 @@ repositories {
 
 dependencies {
     implementation(kotlin("stdlib"))
-    val adventureVersion = "4.13.0"
+    val adventureVersion = "4.13.1"
     api("net.kyori:adventure-text-minimessage:$adventureVersion")
     implementation("net.kyori:adventure-text-serializer-legacy:$adventureVersion")
 }
