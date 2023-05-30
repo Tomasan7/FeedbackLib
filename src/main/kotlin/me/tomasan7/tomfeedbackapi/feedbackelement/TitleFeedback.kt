@@ -123,9 +123,9 @@ class TitleFeedback(
                 if (title == null && subtitle == null)
                     return null
 
-                val fadeIn = map[Keys.FADE_IN] as? Int ?: Times.DEFAULT.fadeIn
-                val stay = map[Keys.STAY] as? Int ?: Times.DEFAULT.stay
-                val fadeOut = map[Keys.FADE_OUT] as? Int ?: Times.DEFAULT.fadeOut
+                val fadeIn = (map[Keys.FADE_IN] as? Number)?.toInt() ?: Times.DEFAULT.fadeIn
+                val stay = (map[Keys.STAY] as? Number)?.toInt() ?: Times.DEFAULT.stay
+                val fadeOut = (map[Keys.FADE_OUT]as? Number)?.toInt() ?: Times.DEFAULT.fadeOut
 
                 return TitleFeedback(title?.miniParse(),
                                      subtitle?.miniParse(),

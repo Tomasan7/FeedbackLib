@@ -101,9 +101,9 @@ class TitlePlaceholderFeedback(
                 if (title == null && subtitle == null)
                     return null
 
-                val fadeIn = map[TitleFeedback.Companion.Keys.FADE_IN] as? Int ?: Times.DEFAULT.fadeIn
-                val stay = map[TitleFeedback.Companion.Keys.STAY] as? Int ?: Times.DEFAULT.stay
-                val fadeOut = map[TitleFeedback.Companion.Keys.FADE_OUT] as? Int ?: Times.DEFAULT.fadeOut
+                val fadeIn = (map[TitleFeedback.Companion.Keys.FADE_IN]as? Number)?.toInt() ?: Times.DEFAULT.fadeIn
+                val stay = (map[TitleFeedback.Companion.Keys.STAY]as? Number)?.toInt() ?: Times.DEFAULT.stay
+                val fadeOut = (map[TitleFeedback.Companion.Keys.FADE_OUT]as? Number)?.toInt() ?: Times.DEFAULT.fadeOut
 
                 return TitlePlaceholderFeedback(title,
                                                 subtitle,
