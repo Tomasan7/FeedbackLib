@@ -17,6 +17,8 @@ interface Feedback : Serializable
     }
 }
 
+fun Audience.apply(feedback: Feedback) = feedback.apply(this)
+
 internal fun String.miniParse(placeholders: Placeholders? = null) =
     if (placeholders != null)
         Feedback.miniMessage.deserialize(placeholders.apply(this))

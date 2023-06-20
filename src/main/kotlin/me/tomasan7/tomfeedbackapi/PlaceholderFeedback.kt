@@ -8,3 +8,5 @@ interface PlaceholderFeedback : Feedback
 
     override fun apply(audience: Audience) = apply(audience, null)
 }
+
+fun Audience.apply(feedback: PlaceholderFeedback, placeholders: Placeholders?) = feedback.apply(this, placeholders)
