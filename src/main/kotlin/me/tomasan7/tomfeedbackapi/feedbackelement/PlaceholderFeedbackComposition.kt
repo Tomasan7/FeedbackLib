@@ -50,7 +50,7 @@ class PlaceholderFeedbackComposition(
                 return null
 
             if (obj is String)
-                return ChatFeedback.deserialize(obj)?.let { PlaceholderFeedbackComposition(it) }
+                return ChatPlaceholderFeedback.deserialize(obj)?.let { PlaceholderFeedbackComposition(it) }
             else
             {
                 val map = obj as Map<String, *>
