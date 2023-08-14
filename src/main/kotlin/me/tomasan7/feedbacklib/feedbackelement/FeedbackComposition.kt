@@ -1,8 +1,8 @@
-package me.tomasan7.tomfeedbackapi.feedbackelement
+package me.tomasan7.feedbacklib.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Feedback
-import me.tomasan7.tomfeedbackapi.emptyMutableHashMap
-import me.tomasan7.tomfeedbackapi.emptyMutableLinkedList
+import me.tomasan7.feedbacklib.Feedback
+import me.tomasan7.feedbacklib.emptyMutableHashMap
+import me.tomasan7.feedbacklib.emptyMutableLinkedList
 import net.kyori.adventure.audience.Audience
 import java.lang.IllegalStateException
 

@@ -1,4 +1,4 @@
-package me.tomasan7.tomfeedbackapi
+package me.tomasan7.feedbacklib
 
 import java.util.*
 import kotlin.collections.HashMap

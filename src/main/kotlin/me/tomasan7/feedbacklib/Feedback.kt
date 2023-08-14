@@ -1,4 +1,4 @@
-package me.tomasan7.tomfeedbackapi
+package me.tomasan7.feedbacklib
 
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.minimessage.MiniMessage

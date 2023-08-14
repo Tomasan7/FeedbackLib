@@ -1,1 +1,1 @@
-rootProject.name = "TomFeedbackApi"
+rootProject.name = "feedbacklib"

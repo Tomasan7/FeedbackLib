@@ -1,8 +1,8 @@
-package me.tomasan7.tomfeedbackapi.feedbackelement
+package me.tomasan7.feedbacklib.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Feedback
-import me.tomasan7.tomfeedbackapi.buildTextComponent
-import me.tomasan7.tomfeedbackapi.miniParse
+import me.tomasan7.feedbacklib.Feedback
+import me.tomasan7.feedbacklib.buildTextComponent
+import me.tomasan7.feedbacklib.miniParse
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.text.Component
 import net.kyori.adventure.text.TextComponent

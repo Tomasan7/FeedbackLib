@@ -49,7 +49,7 @@ java {
 publishing {
     publications {
         create<MavenPublication>("maven") {
-            artifactId = "tom-feedback-api"
+            artifactId = "feedbacklib"
 
             from(components["java"])
             artifact(dokkaJavadocJar)

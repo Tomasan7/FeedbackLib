@@ -1,4 +1,4 @@
-package me.tomasan7.tomfeedbackapi
+package me.tomasan7.feedbacklib
 
 class Placeholders(private val placeholders: Map<String, Any>)
 {

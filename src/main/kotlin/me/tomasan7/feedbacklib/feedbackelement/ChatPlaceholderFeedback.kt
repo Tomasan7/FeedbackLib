@@ -1,8 +1,8 @@
-package me.tomasan7.tomfeedbackapi.feedbackelement
+package me.tomasan7.feedbacklib.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.PlaceholderFeedback
-import me.tomasan7.tomfeedbackapi.Placeholders
-import me.tomasan7.tomfeedbackapi.miniParse
+import me.tomasan7.feedbacklib.PlaceholderFeedback
+import me.tomasan7.feedbacklib.Placeholders
+import me.tomasan7.feedbacklib.miniParse
 import net.kyori.adventure.audience.Audience
 
 open class ChatPlaceholderFeedback(val message: String) : PlaceholderFeedback

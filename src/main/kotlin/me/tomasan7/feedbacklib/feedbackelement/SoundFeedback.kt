@@ -1,6 +1,6 @@
-package me.tomasan7.tomfeedbackapi.feedbackelement
+package me.tomasan7.feedbacklib.feedbackelement
 
-import me.tomasan7.tomfeedbackapi.Feedback
+import me.tomasan7.feedbacklib.Feedback
 import net.kyori.adventure.audience.Audience
 import net.kyori.adventure.key.Key
 import net.kyori.adventure.sound.Sound
