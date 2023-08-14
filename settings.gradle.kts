@@ -1,4 +1,5 @@
 rootProject.name = "feedbacklib"
+include("feedbacklib-hoplite")
 
 pluginManagement {
     repositories {

@@ -22,8 +22,8 @@ FeedbackLib is a library to help developers make more configurable messages and 
 <dependencies>
     ...
     <dependency>
-        <groupId>com.github.Tomasan7</groupId>
-        <artifactId>FeedbackLib</artifactId>
+        <groupId>com.github.Tomasan7.FeedbackLib</groupId>
+        <artifactId>feedbacklib</artifactId>
         <version>VERSION</version>
     </dependency>
 </dependencies>
@@ -39,7 +39,7 @@ repositories {
 
 dependencies {
     ...
-    implementation 'com.github.Tomasan7:FeedbackLib:<VERSION>'
+    implementation 'com.github.Tomasan7.FeedbackLib:feedbacklib:<VERSION>'
 }
 ```
 
@@ -53,7 +53,7 @@ repositories {
 
 dependencies {
     ...
-    implementation("com.github.Tomasan7:FeedbackLib:<VERSION>")
+    implementation("com.github.Tomasan7.FeedbackLib:feedbacklib:<VERSION>")
 }
 ```
 
