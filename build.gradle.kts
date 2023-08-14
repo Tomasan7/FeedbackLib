@@ -23,6 +23,9 @@ tasks {
     compileKotlin {
         kotlinOptions.jvmTarget = "17"
     }
+    wrapper {
+        distributionType = Wrapper.DistributionType.ALL
+    }
 }
 
 // https://github.com/Kotlin/dokka/blob/master/examples/gradle/dokka-library-publishing-example/build.gradle.kts
