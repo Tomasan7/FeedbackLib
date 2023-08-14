@@ -1,8 +1,8 @@
-[![Jitpack](https://jitpack.io/v/Tomasan7/TomFeedbackAPI.svg)](https://jitpack.io/#Tomasan7/TomFeedbackAPI)
+[![Jitpack](https://jitpack.io/v/Tomasan7/FeedbackLib.svg)](https://jitpack.io/#Tomasan7/FeedbackLib)
 
-# TomFeedbackAPI
+# FeedbackLib
 
-TomFeedbackAPI is a library to help developers make more configurable messages and other feedbacks easily in their program. It makes it easier for both the developer and the user to configure different types of so called feedbacks. (messages, sounds, titles, etc.) It works on anything implementing [Adventure](https://github.com/KyoriPowered/adventure). All platforms can be found [here](https://docs.adventure.kyori.net/platform/index.html).
+FeedbackLib is a library to help developers make more configurable messages and other feedbacks easily in their program. It makes it easier for both the developer and the user to configure different types of so-called feedbacks. (messages, sounds, titles, etc.) It works on anything implementing [Adventure](https://github.com/KyoriPowered/adventure). All platforms can be found [here](https://docs.adventure.kyori.net/platform/index.html).
 
 ---
 
@@ -23,7 +23,7 @@ TomFeedbackAPI is a library to help developers make more configurable messages a
     ...
     <dependency>
         <groupId>com.github.Tomasan7</groupId>
-        <artifactId>TomFeedbackAPI</artifactId>
+        <artifactId>FeedbackLib</artifactId>
         <version>VERSION</version>
     </dependency>
 </dependencies>
@@ -39,7 +39,7 @@ repositories {
 
 dependencies {
     ...
-    implementation 'com.github.Tomasan7:TomFeedbackAPI:<VERSION>'
+    implementation 'com.github.Tomasan7:FeedbackLib:<VERSION>'
 }
 ```
 
@@ -53,7 +53,7 @@ repositories {
 
 dependencies {
     ...
-    implementation("com.github.Tomasan7:TomFeedbackAPI:<VERSION>")
+    implementation("com.github.Tomasan7:FeedbackLib:<VERSION>")
 }
 ```
 
@@ -127,7 +127,7 @@ val feedbackComposition = buildFeedbackComposition {
 ```
 
 #### Deserializing Feedbacks from a map
-TomFeedbackAPI doesn't directly support parsing from yaml or different formats. It is able to parse from a `Map<String, Any>`, which you can get from files using parser libraries.
+FeedbackLib doesn't directly support parsing from yaml or different formats. It is able to parse from a `Map<String, Any>`, which you can get from files using parser libraries.
 ```kotlin
  /* Equivalent to the examples above. */
 
@@ -183,7 +183,7 @@ placeholderFeedbackComposition.apply(player, placeholders)
 ```
 
 ### Components
-TomFeedbackAPI also includes handy syntax to easily create Adventure Components in code:
+FeedbackLib also includes handy syntax to easily create Adventure Components in code:
 ```kotlin
 val textComponent = buildTextComponent("Welcome ") { 
     color(NamedTextColor.RED)
